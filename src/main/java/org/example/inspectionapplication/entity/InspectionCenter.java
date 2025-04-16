@@ -1,10 +1,14 @@
 package org.example.inspectionapplication.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Getter @Setter
 @Table(name = "inspection_center")
 public class InspectionCenter {
 
@@ -17,6 +21,6 @@ public class InspectionCenter {
     private String phone;
 
     @OneToMany(mappedBy = "inspectionCenter", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<InspectionEvent> inspectionEvents = new ArrayList<>();
+    private List<InspectionReport> inspectionReports = new ArrayList<>();
 
 }
