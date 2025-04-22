@@ -10,7 +10,7 @@ import java.time.LocalDate;
 
 @Entity
 @Getter @Setter
-@Table(name = "inspection_event")
+@Table(name = "inspection_report")
 public class InspectionReport {
 
     @Id

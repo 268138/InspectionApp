@@ -3,7 +3,6 @@ package org.example.inspectionapplication.service;
 import lombok.RequiredArgsConstructor;
 import org.example.inspectionapplication.entity.Vehicle;
 import org.example.inspectionapplication.repository.VehicleRepository;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
