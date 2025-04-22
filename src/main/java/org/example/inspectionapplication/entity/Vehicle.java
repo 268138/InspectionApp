@@ -18,11 +18,14 @@ public class Vehicle {
     private Long id;
 
     private String licensePlate;
-    private String make;
     private String model;
     private String ownerFirstName;
     private String ownerLastName;
-    private String ownerContactInfo;
+    private String ownerEmail;
+    private String yearOfManufacture;
+    private String fuelType;
+    private String co2Emission;
+    private Long pollutionTax;
 
     @OneToMany(mappedBy = "vehicle", cascade = CascadeType.ALL)
     private List<InspectionReport> inspectionReports = new ArrayList<>();

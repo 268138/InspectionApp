@@ -1,12 +1,12 @@
 package org.example.inspectionapplication.service;
 
-
 import lombok.RequiredArgsConstructor;
 import org.example.inspectionapplication.entity.InspectionReport;
 import org.example.inspectionapplication.repository.InspectionReportRepository;
 import org.example.inspectionapplication.repository.VehicleRepository;
 import org.example.inspectionapplication.repository.InspectionCenterRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -15,45 +15,73 @@ import java.util.List;
 @RequiredArgsConstructor
 public class InspectionReportService {
 
-    private final InspectionReportRepository inspectionReportRepository;
+    private final InspectionReportRepository reportRepository;
     private final VehicleRepository vehicleRepository;
     private final InspectionCenterRepository centerRepository;
 
-    public List<InspectionReport> getAllEvents() {
-        return inspectionReportRepository.findAll();
+    public List<InspectionReport> getAllReports() {
+        return reportRepository.findAll();
     }
 
-    public InspectionReport getEventById(Long id) {
-        return inspectionReportRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Event not found: " + id));
+    public InspectionReport getReportById(Long id) {
+        return reportRepository.findById(id).orElseThrow(() -> new RuntimeException("Report not found: " + id));
     }
 
-    public InspectionReport createReport(InspectionReport toCreateReport) {
-        vehicleRepository.findById(toCreateReport.getVehicle().getId())
-                .orElseThrow(() -> new RuntimeException("Vehicle not found"));
-        centerRepository.findById(toCreateReport.getInspectionCenter().getId())
-                .orElseThrow(() -> new RuntimeException("Center not found"));
+    @Transactional
+    public InspectionReport createReport(InspectionReport toCreate) {
+        // validate FKs
+        vehicleRepository.findById(toCreate.getVehicle().getId()).orElseThrow(() -> new RuntimeException("Vehicle not found"));
+        centerRepository.findById(toCreate.getInspectionCenter().getId()).orElseThrow(() -> new RuntimeException("Center not found"));
 
-        return inspectionReportRepository.save(toCreateReport);
+        return reportRepository.save(toCreate);
     }
 
-    public void deleteEvent(Long id) {
-        inspectionReportRepository.deleteById(id);
+    @Transactional
+    public InspectionReport updateReport(Long id, InspectionReport updated) {
+        InspectionReport existing = getReportById(id);
+
+        existing.setInspectionDate(updated.getInspectionDate());
+        existing.setExpiryDate(updated.getExpiryDate());
+        existing.setInspectorName(updated.getInspectorName());
+        existing.setInspectionResult(updated.getInspectionResult());
+        existing.setNextInspectionDate(updated.getNextInspectionDate());
+
+        existing.setVehicle(updated.getVehicle());
+        existing.setInspectionCenter(updated.getInspectionCenter());
+
+        return reportRepository.save(existing);
+    }
+
+    @Transactional
+    public void deleteReport(Long id) {
+        reportRepository.deleteById(id);
     }
 
     public List<InspectionReport> findByVehicleId(Long vehicleId) {
-        return inspectionReportRepository.findByVehicleId(vehicleId);
+        return reportRepository.findByVehicleId(vehicleId);
     }
 
     public List<InspectionReport> findByCenterId(Long centerId) {
-        return inspectionReportRepository.findByInspectionCenterId(centerId);
+        return reportRepository.findByInspectionCenterId(centerId);
     }
 
     public List<InspectionReport> findByDateRange(LocalDate from, LocalDate to) {
-        return inspectionReportRepository.findByInspectionDateBetween(from, to);
+        return reportRepository.findByInspectionDateBetween(from, to);
     }
 
     public List<InspectionReport> findUpcoming() {
-        return inspectionReportRepository.findByNextInspectionDateAfter(LocalDate.now());
+        return reportRepository.findByNextInspectionDateAfter(LocalDate.now());
+    }
+
+    public List<InspectionReport> findReportsByVehicle(Long vehicleId) {
+        return  reportRepository.findByVehicleId(vehicleId);
+    }
+
+    public List<InspectionReport> findReportsByCenter(Long centerId) {
+        return reportRepository.findByInspectionCenterId(centerId);
+    }
+
+    public List<InspectionReport> findReportsByDateRange(LocalDate from, LocalDate to) {
+        return reportRepository.findByInspectionDateBetween(from,to);
     }
 }

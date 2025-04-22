@@ -34,11 +34,11 @@ public class VehicleService {
     public Vehicle updateVehicle(Long id, Vehicle newVehicleData) {
         Vehicle existingVehicle = getVehicleById(id);
         existingVehicle.setLicensePlate(newVehicleData.getLicensePlate());
-        existingVehicle.setMake(newVehicleData.getMake());
+        existingVehicle.setModel(newVehicleData.getModel());
         existingVehicle.setModel(newVehicleData.getModel());
         existingVehicle.setOwnerFirstName(newVehicleData.getOwnerFirstName());
         existingVehicle.setOwnerLastName(newVehicleData.getOwnerLastName());
-        existingVehicle.setOwnerContactInfo(newVehicleData.getOwnerContactInfo());
+        existingVehicle.setOwnerEmail(newVehicleData.getOwnerEmail());
 
         return vehicleRepository.save(existingVehicle);
     }
