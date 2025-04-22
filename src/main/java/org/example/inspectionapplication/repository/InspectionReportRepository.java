@@ -14,4 +14,6 @@ public interface InspectionReportRepository extends JpaRepository<InspectionRepo
     List<InspectionReport> findByNextInspectionDateAfter(LocalDate now);
 
     List<InspectionReport> findByInspectionDateBetween(LocalDate from, LocalDate to);
+
+
 }

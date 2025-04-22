@@ -18,6 +18,8 @@ public class InspectionReport {
     private Long id;
 
     private LocalDate inspectionDate;
+    private String expiryDate;
+    private String inspectorName;
     private String inspectionResult;
     private String notes;
     private LocalDate nextInspectionDate;
