@@ -35,11 +35,14 @@ public class VehicleService {
         Vehicle existingVehicle = getVehicleById(id);
         existingVehicle.setLicensePlate(newVehicleData.getLicensePlate());
         existingVehicle.setModel(newVehicleData.getModel());
-        existingVehicle.setModel(newVehicleData.getModel());
         existingVehicle.setOwnerFirstName(newVehicleData.getOwnerFirstName());
         existingVehicle.setOwnerLastName(newVehicleData.getOwnerLastName());
         existingVehicle.setOwnerEmail(newVehicleData.getOwnerEmail());
 
         return vehicleRepository.save(existingVehicle);
+    }
+
+    public List<Vehicle> findByLicensePlate(String plate) {
+        return vehicleRepository.findByLicensePlateContainingIgnoreCase(plate);
     }
 }
