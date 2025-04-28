@@ -21,6 +21,9 @@ public class CreateReportRequest {
     @NotBlank
     private String result;
 
+    @NotBlank
+    private String notes;
+
     private LocalDate nextInspectionDate;
 
     @NotNull

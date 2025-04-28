@@ -11,6 +11,7 @@ public class ReportResponse {
     private LocalDate expiryDate;
     private String inspectorName;
     private String result;
+    private String notes;
     private LocalDate nextInspectionDate;
 
     // ← these two lines were also missing!

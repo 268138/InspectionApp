@@ -12,7 +12,6 @@ import org.example.inspectionapplication.dto.report.UpdateReportRequest;
 import org.example.inspectionapplication.entity.InspectionReport;
 import org.example.inspectionapplication.mapper.InspectionReportMapper;
 import org.example.inspectionapplication.service.InspectionReportService;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -28,7 +27,6 @@ import java.util.List;
 public class InspectionReportController {
 
     private final InspectionReportService reportService;
-    @Qualifier("inspectionReportMapperImpl")
     private final InspectionReportMapper reportMapper;
 
     @Operation(summary = "Add a new inspection report", description = "Creates a new inspection report and returns the created resource.")
@@ -70,6 +68,7 @@ public class InspectionReportController {
 
     @Operation(summary = "Get inspection reports by vehicle", description = "Retrieves inspection reports for a given vehicle ID.")
     @ApiResponse(responseCode = "200", description = "Inspection reports retrieved successfully")
+    @ApiResponse(responseCode = "404", description = "Inspection report by vehicle not found")
     @GetMapping(params = "vehicleId")
     public ResponseEntity<List<ReportResponse>> getByVehicle(@RequestParam Long vehicleId) {
         log.info("Fetching inspection reports for vehicle ID {}", vehicleId);
@@ -79,6 +78,7 @@ public class InspectionReportController {
 
     @Operation(summary = "Get inspection reports by center", description = "Retrieves inspection reports for a given center ID.")
     @ApiResponse(responseCode = "200", description = "Inspection reports retrieved successfully")
+    @ApiResponse(responseCode = "400", description = "Inspection reports by center not found")
     @GetMapping(params = "centerId")
     public ResponseEntity<List<ReportResponse>> getByCenter(@RequestParam Long centerId) {
         log.info("Fetching inspection reports for center ID {}", centerId);
@@ -88,6 +88,7 @@ public class InspectionReportController {
 
     @Operation(summary = "Get inspection reports by date range", description = "Retrieves inspection reports between two dates.")
     @ApiResponse(responseCode = "200", description = "Inspection reports retrieved successfully")
+    @ApiResponse(responseCode = "400", description = "Inspection reports retrieval by date range was not successful")
     @GetMapping(path = "/range")
     public ResponseEntity<List<ReportResponse>> getByDateRange(
             @RequestParam LocalDate from,

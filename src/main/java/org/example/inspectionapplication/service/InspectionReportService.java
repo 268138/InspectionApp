@@ -57,20 +57,8 @@ public class InspectionReportService {
         reportRepository.deleteById(id);
     }
 
-    public List<InspectionReport> findByVehicleId(Long vehicleId) {
-        return reportRepository.findByVehicleId(vehicleId);
-    }
-
     public List<InspectionReport> findByCenterId(Long centerId) {
         return reportRepository.findByInspectionCenterId(centerId);
-    }
-
-    public List<InspectionReport> findByDateRange(LocalDate from, LocalDate to) {
-        return reportRepository.findByInspectionDateBetween(from, to);
-    }
-
-    public List<InspectionReport> findUpcoming() {
-        return reportRepository.findByNextInspectionDateAfter(LocalDate.now());
     }
 
     public List<InspectionReport> findReportsByVehicle(Long vehicleId) {

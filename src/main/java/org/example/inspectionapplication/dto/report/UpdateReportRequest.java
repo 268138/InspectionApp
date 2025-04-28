@@ -20,6 +20,8 @@ public class UpdateReportRequest {
     @NotBlank
     private String result;
 
+    private String notes;
+
     private LocalDate nextInspectionDate;
 
 }
