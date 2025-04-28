@@ -14,7 +14,6 @@ public class ReportResponse {
     private String notes;
     private LocalDate nextInspectionDate;
 
-    // ← these two lines were also missing!
     private Long vehicleId;
     private Long centerId;
 }

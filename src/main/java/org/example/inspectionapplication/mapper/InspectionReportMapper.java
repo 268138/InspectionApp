@@ -15,15 +15,15 @@ import java.util.List;
         unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface InspectionReportMapper {
 
-    @Mapping(target = "vehicle.id",          source = "dto.vehicleId")
+    @Mapping(target = "vehicle.id", source = "dto.vehicleId")
     @Mapping(target = "inspectionCenter.id", source = "dto.centerId")
     InspectionReport toEntity(CreateReportRequest dto);
 
     void updateEntityFromDto(UpdateReportRequest dto,
                              @MappingTarget InspectionReport entity);
 
-    @Mapping(target = "vehicleId",           source = "entity.vehicle.id")
-    @Mapping(target = "centerId",            source = "entity.inspectionCenter.id")
+    @Mapping(target = "vehicleId", source = "entity.vehicle.id")
+    @Mapping(target = "centerId", source = "entity.inspectionCenter.id")
     ReportResponse toResponse(InspectionReport entity);
 
     List<ReportResponse> entityListToDto(List<InspectionReport> entities);
