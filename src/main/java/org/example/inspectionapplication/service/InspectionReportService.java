@@ -29,7 +29,7 @@ public class InspectionReportService {
 
     @Transactional
     public InspectionReport createReport(InspectionReport toCreate) {
-        // validate FKs
+
         vehicleRepository.findById(toCreate.getVehicle().getId()).orElseThrow(() -> new RuntimeException("Vehicle not found"));
         centerRepository.findById(toCreate.getInspectionCenter().getId()).orElseThrow(() -> new RuntimeException("Center not found"));
 
@@ -62,7 +62,7 @@ public class InspectionReportService {
     }
 
     public List<InspectionReport> findReportsByVehicle(Long vehicleId) {
-        return  reportRepository.findByVehicleId(vehicleId);
+        return reportRepository.findByVehicleId(vehicleId);
     }
 
     public List<InspectionReport> findReportsByCenter(Long centerId) {
@@ -70,6 +70,6 @@ public class InspectionReportService {
     }
 
     public List<InspectionReport> findReportsByDateRange(LocalDate from, LocalDate to) {
-        return reportRepository.findByInspectionDateBetween(from,to);
+        return reportRepository.findByInspectionDateBetween(from, to);
     }
 }
